@@ -1,0 +1,32 @@
+.details {
+    background-color: #eff0f5;
+}
+.plus, .minus {
+    background-color: #d1d1d1;
+    color: gray;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+.plus:hover, .minus:hover {
+    background-color: #f73e64;
+    color: #fff;
+}
+.details-buy-now-btn {
+    width: 100%;
+    font-size: 14px;
+    border: none;
+    padding: 8px 0;
+    color: #fff;
+    background-color: #f73e64;
+    border-radius: 3px;
+}
+.title {
+    background-color: #fafafa;
+    padding: 15px 24px;
+}
+.details li {
+    font-size: 14px;
+}
+.cart-color {
+    background-color: #fafafa;
+}

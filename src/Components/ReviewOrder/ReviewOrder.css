@@ -1,0 +1,13 @@
+.review-order {
+    background-color: #fffbf0;
+}
+.review-order h1 {
+    font-family: 'Bebas Neue', cursive !important;
+    text-align: center;
+    margin-top: 3rem;
+}
+.review-cart {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 4px 4px 10px #c2c2c2;
+}
