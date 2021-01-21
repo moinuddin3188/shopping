@@ -1,17 +1,23 @@
 import React from 'react';
+import fakeData from '../../../fakeData';
 import ProductCard from './ProductCard';
 import './Products.css';
 
 const Products = () => {
 
-    const a = [1, 1, 1, 1]
+    const products = fakeData.slice(0, 12);
 
     return (
         <section className='products container mt-5 mb-5'>
             <h1>Collections</h1>
             <div className="row">
                 {
-                    a.map(() => <ProductCard buy />)
+                    products.map(product =>
+                        <ProductCard
+                            product={product}
+                            buy
+                        />
+                    )
                 }
             </div>
         </section>

@@ -6,6 +6,7 @@
     color: gray;
     padding: 6px 10px;
     cursor: pointer;
+    transition: all 0.3s;
 }
 .plus:hover, .minus:hover {
     background-color: #f73e64;

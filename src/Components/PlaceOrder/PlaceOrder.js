@@ -2,6 +2,7 @@ import React from 'react';
 import './PlaceOrder.css';
 import Navbar from '../Home/Navbar/Navbar';
 import img from '../../Images/SeekPng 1.png';
+import { Link } from 'react-router-dom';
 
 
 const PlaceOrder = () => {
@@ -41,10 +42,12 @@ const PlaceOrder = () => {
                             )
                         }
                         <div className="d-flex">
-                            <p>Total:</p>
+                            <p>Total :</p>
                             <p className="ml-auto color">$120</p>
                         </div>
-                        
+                        <Link to="/orderUpdate">
+                            <button>Place Your Order</button>
+                        </Link>
                     </div>
                 </div>
             </div>

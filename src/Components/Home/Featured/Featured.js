@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import img from '../../../Images/Group 33092.png';
+import img2 from '../../../Images/Banner2.png'
+import img3 from '../../../Images/Banner3.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,7 +15,7 @@ SwiperCore.use([Navigation, A11y, Autoplay]);
 
 const Featured = () => {
 
-    const a = [1, 1, 1];
+    const a = [img, img2, img3];
 
     return (
         <div className='featured'>
@@ -39,7 +41,7 @@ const Featured = () => {
                                     </div>
                                 </div>
                                 <div className="col-6">
-                                    <img width="80%" src={img} alt="" />
+                                    <img width="80%" src={a} alt="" />
                                 </div>
                             </div>
                         </SwiperSlide>

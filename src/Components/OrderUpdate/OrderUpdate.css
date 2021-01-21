@@ -1,0 +1,39 @@
+.order-update h1 {
+    font-family: 'Bebas Neue', cursive !important;
+    text-align: center;
+    margin-top: 3rem;
+}
+.delivery-details-raider {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+.circle {
+    width: 10px;
+    height: 10px;
+    background-color: #f73e64;
+    border-radius: 10px;
+    margin-top: 7px;
+}
+.label {
+    padding-left: 10px;
+}
+.content {
+    margin-left: 5px;
+    padding-left: 15px;
+}
+.connector {
+    height: 20px;
+    margin-left: 5px;
+}
+.delivery-details-raider small {
+    font-size: 11px;
+    color: gray;
+    line-height: 18px;
+}
+.delivery-details-raider p {
+    font-size: 14px;
+    font-weight: 400;
+}
+.delivery-details-raider h5 {
+    font-weight: 600;
+}
