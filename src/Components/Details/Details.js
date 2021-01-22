@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Details.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Navbar from '../Home/Navbar/Navbar';
 import Cart from '../Cart/Cart';
 import { useHistory, useParams } from 'react-router-dom';
-import fakeData from '../../fakeData';
+import { connect } from 'react-redux';
+import { fetchCurrentProduct } from '../../Redux/CurrentProduct/CurrentProductAction';
 
-const Details = () => {
+
+const Details = (props) => {
 
     const { key } = useParams();
+
     const history = useHistory()
-    const reviewOrder = () => {
-        history.push('/reviewOrder')
+    const placeOrder = () => {
+        history.push('/confirmOrder')
     }
 
-    const { name, price, shipping, img, seller, features } = fakeData.find(product => product.key === key);
+    useEffect(() => {
+        props.fetchProduct(key)
+    }, [key])
+
+    const { name, price, shipping, img, seller, features } = props.product[0];
 
     return (
         <section className='details'>
@@ -42,7 +49,7 @@ const Details = () => {
                             <small className="mx-4">1</small>
                             <small className="plus"><FontAwesomeIcon icon={faPlus} /></small> <br />
                             <div className='d-flex mt-4'>
-                                <button onClick={reviewOrder} className='details-buy-now-btn mr-3'>BUY NOW</button>
+                                <button onClick={placeOrder} className='details-buy-now-btn mr-3'>BUY NOW</button>
                                 <button className='ml-auto details-buy-now-btn ml-3'>ADD TO CART</button>
                             </div>
                         </div>
@@ -56,10 +63,10 @@ const Details = () => {
                 <div className="mt-3 title">
                     <h6 className='m-0'>{name}</h6>
                 </div>
-                <div className="about-product bg-white py-4">
+                <div className="about-product bg-white py-4 pr-3">
                     <ul>
                         {
-                            features.map(feature => <li>{feature.description} - {feature.value}</li> )
+                            features && features.map(feature => <li>{feature.description || feature} - {feature.value}</li> )
                         }
                     </ul>
                 </div>
@@ -68,4 +75,19 @@ const Details = () => {
     );
 };
 
-export default Details;
+const mapStateToProps = state => {
+    return {
+        product: state.currentProduct.currentProduct
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchProduct: (key) => dispatch(fetchCurrentProduct(key))
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Details);

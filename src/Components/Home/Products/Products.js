@@ -1,11 +1,22 @@
-import React from 'react';
-import fakeData from '../../../fakeData';
+import React, { useEffect, useState } from 'react';
+import fakeData, { shuffle } from '../../../fakeData';
 import ProductCard from './ProductCard';
 import './Products.css';
 
 const Products = () => {
 
-    const products = fakeData.slice(0, 12);
+    const [product, setProduct] = useState([])
+
+    useEffect(() => {
+        fetch("http://localhost:5000/allProducts")
+        .then(res => res.json())
+        .then(data => {
+            shuffle(data)
+            setProduct(data)
+        })
+    }, [])
+
+    const products = product.slice(0, 12);
 
     return (
         <section className='products container mt-5 mb-5'>

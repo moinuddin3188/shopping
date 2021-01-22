@@ -3,9 +3,10 @@ import './PlaceOrder.css';
 import Navbar from '../Home/Navbar/Navbar';
 import img from '../../Images/SeekPng 1.png';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
-const PlaceOrder = () => {
+const PlaceOrder = ({product}) => {
     const a = [1, 1, 1]
     return (
         <section className='place-order'>
@@ -26,15 +27,15 @@ const PlaceOrder = () => {
                     </div>
                     <div className="col-4 offset-3 mt-4">
                         {
-                            a.map(() =>
+                            product.map((product) =>
                                 <div className="ordered-items row mb-2">
                                     <div className="col-4 d-flex align-items-center">
-                                        <img width="100%" src={img} alt="" />
+                                        <img width="100%" src={product.img} alt="" />
                                     </div>
                                     <div className="col-8 d-flex align-items-center px-0">
                                         <div>
-                                            <p className="mb-1">Lorem ipsum, dolor sit amet consec adipi elit it omnis.</p>
-                                            <h6 className="color mb-1">$120</h6>
+                                            <p className="mb-1">{product.name}</p>
+                                            <h6 className="color mb-1">${product.price}</h6>
                                             <small>Quantity: 1</small>
                                         </div>
                                     </div>
@@ -46,7 +47,7 @@ const PlaceOrder = () => {
                             <p className="ml-auto color">$120</p>
                         </div>
                         <Link to="/orderUpdate">
-                            <button>Place Your Order</button>
+                            <button className='place-order-btn'>Place Your Order</button>
                         </Link>
                     </div>
                 </div>
@@ -55,4 +56,13 @@ const PlaceOrder = () => {
     );
 };
 
-export default PlaceOrder;
+const mapStateToProps = state => {
+    return {
+        product: state.currentProduct.currentProduct
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(PlaceOrder);

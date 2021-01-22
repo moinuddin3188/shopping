@@ -30,7 +30,7 @@ const ProductCard = (props) => {
                         <div className="ml-auto">
                             {
                                 props.buy 
-                                ? <button onClick={showDetails} className='buy-now-btn'>BYU NOW</button>
+                                ? <button onClick={showDetails} className='buy-now-btn'>BUY NOW</button>
                                 : <button className='buy-now-btn'>REMOVE</button>
                             }
                         </div>
@@ -48,5 +48,6 @@ const ProductCard = (props) => {
         </div>
     );
 };
+
 
 export default ProductCard;

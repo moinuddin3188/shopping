@@ -6,29 +6,33 @@ import OrderUpdate from './Components/OrderUpdate/OrderUpdate';
 import PlaceOrder from './Components/PlaceOrder/PlaceOrder';
 import ReviewOrder from './Components/ReviewOrder/ReviewOrder';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Provider } from 'react-redux';
+import store from './Redux/Store';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/details/:key">
-          <Details />
-        </Route>
-        <Route path="/reviewOrder">
-          <ReviewOrder />
-        </Route>
-        <Route path="/confirmOrder">
-          <PlaceOrder />
-        </Route>
-        <Route path="/orderUpdate">
-          <OrderUpdate />
-        </Route>
-      </Switch>
-      <Footer />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/details/:key">
+            <Details />
+          </Route>
+          <Route path="/reviewOrder">
+            <ReviewOrder />
+          </Route>
+          <Route path="/confirmOrder">
+            <PlaceOrder />
+          </Route>
+          <Route path="/orderUpdate">
+            <OrderUpdate />
+          </Route>
+        </Switch>
+        <Footer />
+      </Router>
+     </Provider>
   );
 }
 
