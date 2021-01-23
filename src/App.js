@@ -26,6 +26,9 @@ function App() {
           <Route path="/confirmOrder">
             <PlaceOrder />
           </Route>
+          <Route path="/quickShop/:quantity">
+            <PlaceOrder />
+          </Route>
           <Route path="/orderUpdate">
             <OrderUpdate />
           </Route>

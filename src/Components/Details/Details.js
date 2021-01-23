@@ -7,22 +7,33 @@ import Cart from '../Cart/Cart';
 import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCurrentProduct } from '../../Redux/CurrentProduct/CurrentProductAction';
+import { addToCart } from '../../Redux/Cart/CartAction';
 
 
 const Details = (props) => {
 
+    const [quantity, setQuantity] = useState(1);
     const { key } = useParams();
+
+    if (quantity < 1) {
+        setQuantity(1)
+    } else if (quantity > 5) {
+        setQuantity(5)
+    }
 
     const history = useHistory()
     const placeOrder = () => {
-        history.push('/confirmOrder')
+        history.push(`/quickShop/${quantity}`)
     }
 
     useEffect(() => {
         props.fetchProduct(key)
-    }, [key])
+    }, [])
 
-    const { name, price, shipping, img, seller, features } = props.product[0];
+    const product = props.product;
+    const { name, price, shipping, img, seller, features } = product;
+
+    const newProduct = { ...props.product, quantity: quantity }
 
     return (
         <section className='details'>
@@ -45,12 +56,26 @@ const Details = (props) => {
                         </div>
                         <div className='py-3'>
                             <small className='mr-5'>Quantity: </small>
-                            <small className="minus"><FontAwesomeIcon icon={faMinus} /></small>
-                            <small className="mx-4">1</small>
-                            <small className="plus"><FontAwesomeIcon icon={faPlus} /></small> <br />
+                            <small onClick={() => setQuantity(quantity - 1)} className="minus">
+                                <FontAwesomeIcon icon={faMinus} />
+                            </small>
+                            <small className="mx-4">{quantity}</small>
+                            <small onClick={() => setQuantity(quantity + 1)} className="plus">
+                                <FontAwesomeIcon icon={faPlus} />
+                            </small> <br />
                             <div className='d-flex mt-4'>
-                                <button onClick={placeOrder} className='details-buy-now-btn mr-3'>BUY NOW</button>
-                                <button className='ml-auto details-buy-now-btn ml-3'>ADD TO CART</button>
+                                <button
+                                    onClick={placeOrder}
+                                    className='details-buy-now-btn mr-3'
+                                >
+                                    BUY NOW
+                                </button>
+                                <button
+                                    onClick={() => props.addToCart(newProduct)}
+                                    className='ml-auto details-buy-now-btn ml-3'
+                                >
+                                    ADD TO CART
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -66,7 +91,7 @@ const Details = (props) => {
                 <div className="about-product bg-white py-4 pr-3">
                     <ul>
                         {
-                            features && features.map(feature => <li>{feature.description || feature} - {feature.value}</li> )
+                            features && features.map(feature => <li>{feature.description || feature} - {feature.value}</li>)
                         }
                     </ul>
                 </div>
@@ -77,13 +102,15 @@ const Details = (props) => {
 
 const mapStateToProps = state => {
     return {
-        product: state.currentProduct.currentProduct
+        product: state.currentProduct.currentProduct,
+        cart: state.cart.products
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchProduct: (key) => dispatch(fetchCurrentProduct(key))
+        fetchProduct: (key) => dispatch(fetchCurrentProduct(key)),
+        addToCart: (product) => dispatch(addToCart(product))
     }
 }
 

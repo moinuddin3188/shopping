@@ -3,11 +3,13 @@ import Cart from '../Cart/Cart';
 import Navbar from '../Home/Navbar/Navbar';
 import ProductCard from '../Home/Products/ProductCard';
 import './ReviewOrder.css';
+import { connect } from 'react-redux'
 
-const ReviewOrder = () => {
-    const a = [1, 1, 1, 1];
+
+const ReviewOrder = ({cart}) => {
+    console.log(cart)
     return (
-        <section className="review-order">
+        <section className="review-order pb-5">
             <div className="container">
                 <Navbar />
                 <h1>Review your order</h1>
@@ -15,7 +17,7 @@ const ReviewOrder = () => {
                     <div className="col-9">
                         <div className="row py-5">
                             {
-                                a.map(() => <ProductCard />)
+                                cart.map(product => <ProductCard product={product} />)
                             }
                         </div>
                     </div>
@@ -30,4 +32,13 @@ const ReviewOrder = () => {
     );
 };
 
-export default ReviewOrder;
+const mapStateToProps = state => {
+    return {
+        cart: state.cart.products
+    }
+}
+
+export default connect(
+    mapStateToProps, 
+    null
+)(ReviewOrder);

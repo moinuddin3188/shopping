@@ -31,7 +31,7 @@ export const fetchCurrentProduct = key => {
         dispatch(fetchCurrentProductRequest)
         axios.get(`http://localhost:5000/productByKey/${key}`)
         .then(response => {
-            const currentProduct = response.data
+            const currentProduct = response.data[0]
             dispatch(fetchCurrentProductSuccess(currentProduct))
         })
         .catch(error => {

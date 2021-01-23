@@ -3,6 +3,9 @@ import './ProductCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { removeFromCart } from '../../../Redux/Cart/CartAction';
+
 
 const ProductCard = (props) => {
 
@@ -31,7 +34,7 @@ const ProductCard = (props) => {
                             {
                                 props.buy 
                                 ? <button onClick={showDetails} className='buy-now-btn'>BUY NOW</button>
-                                : <button className='buy-now-btn'>REMOVE</button>
+                                : <button onClick={() => props.removeFromCart(props.product)} className='buy-now-btn'>REMOVE</button>
                             }
                         </div>
                     </div>
@@ -49,5 +52,20 @@ const ProductCard = (props) => {
     );
 };
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        product: ownProps.product
+    }
+}
 
-export default ProductCard;
+const mapDispatchToProps = dispatch => {
+    return {
+        removeFromCart: (key) => dispatch(removeFromCart(key))
+    }
+}
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ProductCard);
