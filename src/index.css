@@ -25,3 +25,7 @@ code {
   border-radius: 5px;
   padding: 10px 20px;
 }
+
+input:focus, button:focus {
+  outline: none !important;
+}

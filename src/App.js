@@ -8,6 +8,9 @@ import ReviewOrder from './Components/ReviewOrder/ReviewOrder';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './Redux/Store';
+import ProductsByCategory from './Components/ProductsByCategory/ProductsByCategory';
+import SearchResult from './Components/SearchResult/SearchResult';
+import Login from './Components/Login/Login';
 
 function App() {
   return (
@@ -32,8 +35,17 @@ function App() {
           <Route path="/orderUpdate">
             <OrderUpdate />
           </Route>
+          <Route path="/product/:category">
+            <ProductsByCategory />
+          </Route>
+          <Route path="/searchResult/:keyWord">
+            <SearchResult />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </Router>
      </Provider>
   );
