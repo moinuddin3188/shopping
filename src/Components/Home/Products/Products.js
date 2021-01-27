@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import fakeData, { shuffle } from '../../../fakeData';
+import Preloader from '../../Preloader/Preloader';
 import ProductCard from './ProductCard';
 import './Products.css';
 
@@ -22,16 +23,20 @@ const Products = () => {
     return (
         <section className='products container mt-5 mb-5'>
             <h1>Collections</h1>
-            <div className="row">
-                {
-                    products.map(product =>
-                        <ProductCard
-                            product={product}
-                            buy
-                        />
-                    )
-                }
-            </div>
+            {
+                product.length < 1 ?
+                    <Preloader /> :
+                    <div className="row">
+                        {
+                            products.map(product =>
+                                <ProductCard
+                                    product={product}
+                                    buy
+                                />
+                            )
+                        }
+                    </div>
+            }
             <div className="text-center">
                 <button
                     onClick={() => setDisplay(display + 8)}

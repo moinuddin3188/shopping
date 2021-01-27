@@ -6,6 +6,7 @@ import { fetchCategory } from '../../Redux/Category/CategoryAction';
 import Navbar from '../Home/Navbar/Navbar';
 import ProductCard from '../Home/Products/ProductCard';
 import Footer from '../Home/Footer/Footer';
+import Preloader from '../Preloader/Preloader';
 
 const ProductsByCategory = ({ products, fetchProducts }) => {
 
@@ -25,16 +26,22 @@ const ProductsByCategory = ({ products, fetchProducts }) => {
                 </div>
                 <div className='products-by-category container'>
                     <h1>{category}s</h1>
-                    <div className="row">
-                        {
-                            products.map(product =>
-                                <ProductCard
-                                    product={product}
-                                    buy
-                                />
+                    {
+                        products.loading ? (
+                            <Preloader />
+                        ) : (
+                                <div className="row">
+                                    {
+                                        products && products.products.map(product =>
+                                            <ProductCard
+                                                product={product}
+                                                buy
+                                            />
+                                        )
+                                    }
+                                </div>
                             )
-                        }
-                    </div>
+                    }
                 </div>
             </section>
             <Footer />
@@ -44,7 +51,7 @@ const ProductsByCategory = ({ products, fetchProducts }) => {
 
 const mapStateToProps = state => {
     return {
-        products: state.category.products
+        products: state.category
     }
 }
 

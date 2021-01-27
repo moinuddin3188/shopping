@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Preloader from '../../Preloader/Preloader';
 import './Categories.css';
 import CategoryCard from './CategoryCard';
 
@@ -8,18 +9,22 @@ const Categories = () => {
 
     useEffect(() => {
         fetch('http://localhost:5000/categories')
-        .then(res => res.json())
-        .then(data => setCategories(data))
+            .then(res => res.json())
+            .then(data => setCategories(data))
     })
 
     return (
         <section className="categories container mt-5">
             <h1>Categories</h1>
-            <div className="row">
-                {
-                    categories.map(category => <CategoryCard category={category} />)
-                }
-            </div>
+            {
+                categories.length < 1 ?
+                    <Preloader /> :
+                    <div className="row">
+                        {
+                            categories.map(category => <CategoryCard category={category} />)
+                        }
+                    </div>
+            }
         </section>
     );
 };

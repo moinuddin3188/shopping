@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import ProductCard from '../Home/Products/ProductCard';
 import { fetchSearchResult } from '../../Redux/Search/SearchAction';
 import { useParams } from 'react-router-dom';
+import Preloader from '../Preloader/Preloader';
+import Footer from '../Home/Footer/Footer';
 
 const SearchResult = ({ products, fetchSearchProducts }) => {
 
@@ -12,7 +14,7 @@ const SearchResult = ({ products, fetchSearchProducts }) => {
 
     useEffect(() => {
         fetchSearchProducts(keyWord)
-    })
+    }, [])
 
     return (
         <>
@@ -23,24 +25,31 @@ const SearchResult = ({ products, fetchSearchProducts }) => {
             </div>
             <section className='search-result container'>
                 <h1>Search Results</h1>
-                <div className="row">
-                    {
-                        products.map(product =>
-                            <ProductCard
-                                product={product}
-                                buy
-                            />
+                {
+                    products.loading ? (
+                        <Preloader />
+                    ) : (
+                            <div className="row">
+                                {
+                                    products && products.products.map(product =>
+                                        <ProductCard
+                                            product={product}
+                                            buy
+                                        />
+                                    )
+                                }
+                            </div>
                         )
-                    }
-                </div>
+                }
             </section>
+            <Footer />
         </>
     );
 };
 
 const mapStateToProps = state => {
     return {
-        products: state.search.products
+        products: state.search
     }
 }
 

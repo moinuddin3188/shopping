@@ -6,7 +6,7 @@
     text-align: center;
     margin-top: 3rem;
 }
-.delivery-details input, .place-order-btn {
+.delivery-details input, .delivery-details select, .place-order-btn {
     width: 100%;
     border: none;
     background-color: #e9e9e9;

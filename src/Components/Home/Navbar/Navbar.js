@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import logo from '../../../Images/logo.png';
 import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 
-const Navbar = () => {
+const Navbar = ({ userInfo }) => {
 
     const [keyWord, setKeyword] = useState('')
 
@@ -40,11 +41,29 @@ const Navbar = () => {
                     <FontAwesomeIcon icon={faShoppingCart} />
                 </Link>
             </div>
-            <div className="col-auto d-none d-md-block p-0 pt-3">
-                <Link to="/login" className='text-decoration-none' href="">Login</Link>
+            <div className={
+                userInfo.email
+                    ? "col-auto d-none d-md-block p-0 user-photo"
+                    : "col-auto d-none d-md-block p-0 pt-3"
+            }>
+                {userInfo.name
+                    ? <Link>
+                        <img className='rounded-circle' width="25%" src={userInfo.photo} alt="" />
+                    </Link>
+                    : <Link to="/login" className='text-decoration-none' href="">Login</Link>
+                }
             </div>
         </nav>
     );
 };
 
-export default Navbar;
+const mapStateToProps = state => {
+    return {
+        userInfo: state.user
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(Navbar);

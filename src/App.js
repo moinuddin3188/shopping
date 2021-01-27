@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Details from './Components/Details/Details';
-import Footer from './Components/Home/Footer/Footer';
 import Home from './Components/Home/Home';
 import OrderUpdate from './Components/OrderUpdate/OrderUpdate';
 import PlaceOrder from './Components/PlaceOrder/PlaceOrder';
@@ -11,6 +10,8 @@ import store from './Redux/Store';
 import ProductsByCategory from './Components/ProductsByCategory/ProductsByCategory';
 import SearchResult from './Components/SearchResult/SearchResult';
 import Login from './Components/Login/Login';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import Payment from './Components/Payment/Payment';
 
 function App() {
   return (
@@ -26,15 +27,18 @@ function App() {
           <Route path="/reviewOrder">
             <ReviewOrder />
           </Route>
-          <Route path="/confirmOrder">
+          <PrivateRoute path="/confirmOrder">
             <PlaceOrder />
-          </Route>
-          <Route path="/quickShop/:quantity">
+          </PrivateRoute>
+          <PrivateRoute path="/quickShop/:quantity">
             <PlaceOrder />
-          </Route>
-          <Route path="/orderUpdate">
+          </PrivateRoute>
+          <PrivateRoute path="/orderUpdate">
             <OrderUpdate />
-          </Route>
+          </PrivateRoute>
+          <PrivateRoute path="/payment">
+            <Payment />
+          </PrivateRoute>
           <Route path="/product/:category">
             <ProductsByCategory />
           </Route>
@@ -45,7 +49,6 @@ function App() {
             <Login />
           </Route>
         </Switch>
-        {/* <Footer /> */}
       </Router>
      </Provider>
   );

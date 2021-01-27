@@ -21,7 +21,7 @@ const searchReducer = (state = initialState, action) => {
         
         case FETCH_SEARCH_SUCCESS:
             return {
-                loading: true,
+                loading: false,
                 products: action.payload,
                 error: ''
             }

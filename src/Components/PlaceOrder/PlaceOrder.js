@@ -1,19 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './PlaceOrder.css';
 import Navbar from '../Home/Navbar/Navbar';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Footer from '../Home/Footer/Footer';
+import { deliveryInfo } from '../../Redux/Delivery/DeliveryAction';
 
 
-const PlaceOrder = ({ product, cart }) => {
+const PlaceOrder = ({ product, cart, userInfo, deliveryInformation }) => {
 
     const { quantity } = useParams();
+    const history = useHistory();
 
     const products = quantity ? [product] : [...cart];
     const total = products.reduce((total, product) => total + (product.price) * product.quantity, 0) || products[0].price * quantity;
     const shipping = products.reduce((shipping, product) => shipping + (product.shipping) * product.quantity, 0) || products[0].shipping * quantity;
     const grandTotal = total + shipping;
+
+    const [information, setInformation] = useState(false)
+    const [deliveryInfo, setDeliveryInfo] = useState({})
+
+    const handleBlur = e => {
+        const info = { ...deliveryInfo };
+        info[e.target.name] = e.target.value;
+        setDeliveryInfo(info)
+        deliveryInformation(info)
+    }
+
+    const deleteId = array => {
+        let products = [];
+        for (let i = 0; i < array.length; i++) {
+            const element = array[i];
+            delete element._id
+            products.push(element)
+        }
+        return products;
+    }
+
+    const clearProducts = deleteId(products)
+
+    const placeOrder = () => {
+        fetch('http://localhost:5000/placeOrder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderStatus: 'Pending', client: userInfo, ordered: clearProducts })
+        })
+            .then(res => res.json())
+            .then(success => {
+
+            })
+
+        history.push('/orderUpdate')
+    }
+
+    const payment = () => {
+        history.push('/payment')
+    }
+
+    const handleSubmit = e => {
+        setInformation(true);
+
+        e.preventDefault();
+    }
 
     return (
         <>
@@ -24,12 +72,38 @@ const PlaceOrder = ({ product, cart }) => {
                     <div className="row my-5">
                         <div className="col-5 px-5 delivery-details">
                             <h6 className="border-bottom pb-2 mb-3">Edit Delivery Details</h6>
-                            <form action="">
-                                <input type="text" /><br />
-                                <input type="text" /><br />
-                                <input type="text" /><br />
-                                <input type="text" /><br />
-                                <input type="text" /><br />
+                            <form onSubmit={handleSubmit}>
+                                <select onBlur={handleBlur} name="payment" id="" required>
+                                    <option value="onlinePayment">Online Payment</option>
+                                    <option value="paymentOnDelivery">Payment on Delivery</option>
+                                </select>
+                                <input
+                                    onBlur={handleBlur}
+                                    name="location"
+                                    type="text"
+                                    placeholder="Location"
+                                    required
+                                /><br />
+                                <input
+                                    onBlur={handleBlur}
+                                    name="flatOrFloor"
+                                    type="text"
+                                    placeholder="Flat, suit or floor"
+                                    required
+                                /><br />
+                                <input
+                                    onBlur={handleBlur}
+                                    name="receiverName"
+                                    type="text"
+                                    placeholder="Receiver name"
+                                    required
+                                /><br />
+                                <input
+                                    onBlur={handleBlur}
+                                    name="instruction"
+                                    type="text"
+                                    placeholder="Instruction for Raider"
+                                /><br />
                                 <input type="submit" value="Save & Continue" />
                             </form>
                         </div>
@@ -54,9 +128,24 @@ const PlaceOrder = ({ product, cart }) => {
                                 <p>Total <small className="text-black-50">(shipping)</small> :</p>
                                 <p className="ml-auto color">${grandTotal.toFixed(2)}</p>
                             </div>
-                            <Link to="/orderUpdate">
-                                <button className='place-order-btn'>Place Your Order</button>
-                            </Link>
+                            {
+                                information ? (
+                                    <button
+                                        onClick={deliveryInfo.payment === 'onlinePayment' ? payment : placeOrder}
+                                        className='place-order-btn'
+                                    >
+                                        Place Your Order
+                                    </button>
+                                ) : (
+                                        <button
+                                            disabled
+                                            style={{ backgroundColor: 'lightgray' }}
+                                            className='place-order-btn'
+                                        >
+                                            Place Your Order
+                                        </button>
+                                    )
+                            }
                         </div>
                     </div>
                 </div>
@@ -69,11 +158,18 @@ const PlaceOrder = ({ product, cart }) => {
 const mapStateToProps = state => {
     return {
         product: state.currentProduct.currentProduct,
-        cart: state.cart.products
+        cart: state.cart.products,
+        userInfo: state.user
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        deliveryInformation: (info) => dispatch(deliveryInfo(info))
     }
 }
 
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(PlaceOrder);
