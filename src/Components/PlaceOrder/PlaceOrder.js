@@ -40,7 +40,7 @@ const PlaceOrder = ({ product, cart, userInfo, deliveryInformation }) => {
     const clearProducts = deleteId(products)
 
     const placeOrder = () => {
-        fetch('http://localhost:5000/placeOrder', {
+        fetch('https://tranquil-ocean-43316.herokuapp.com/placeOrder', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ orderStatus: 'Pending', client: userInfo, ordered: clearProducts })

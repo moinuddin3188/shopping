@@ -29,7 +29,7 @@ const fetchCurrentProductFailure = error => {
 export const fetchCurrentProduct = key => {
     return (dispatch) => {
         dispatch(fetchCurrentProductRequest)
-        axios.get(`http://localhost:5000/productByKey/${key}`)
+        axios.get(`https://tranquil-ocean-43316.herokuapp.com/productByKey/${key}`)
         .then(response => {
             const currentProduct = response.data[0]
             dispatch(fetchCurrentProductSuccess(currentProduct))

@@ -37,7 +37,7 @@ const PaymentForm = ({ cart, currentProduct, deliveryInfo }) => {
         if (payload.error.message.length > 67) {
             const orderedProduct = number === 1 ? [currentProduct] : [...cart];
 
-            fetch('http://localhost:5000/placeOrder', {
+            fetch('https://tranquil-ocean-43316.herokuapp.com/placeOrder', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ orderStatus: 'Pending', client: deliveryInfo, ordered: orderedProduct })

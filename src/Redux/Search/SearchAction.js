@@ -29,7 +29,7 @@ const fetchSearchFailure = error => {
 export const fetchSearchResult = keyWord => {
     return (dispatch) => {
         dispatch(fetchSearchRequest())
-        axios.get(`http://localhost:5000/search/${keyWord}`)
+        axios.get(`https://tranquil-ocean-43316.herokuapp.com/search/${keyWord}`)
         .then(response => {
             const products = response.data
             dispatch(fetchSearchSuccess(products))

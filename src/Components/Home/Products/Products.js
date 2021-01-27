@@ -10,7 +10,7 @@ const Products = () => {
     const [product, setProduct] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:5000/allProducts")
+        fetch("https://tranquil-ocean-43316.herokuapp.com/allProducts")
             .then(res => res.json())
             .then(data => {
                 shuffle(data)

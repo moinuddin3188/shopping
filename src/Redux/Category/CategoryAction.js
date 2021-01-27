@@ -28,7 +28,7 @@ const fetchCategoryFailure = error => {
 export const fetchCategory = category => {
     return (dispatch) => {
         dispatch(fetchCategoryRequest())
-        axios.get(`http://localhost:5000/productByCategory/${category}`)
+        axios.get(`https://tranquil-ocean-43316.herokuapp.com/productByCategory/${category}`)
         .then(response => {
             const products = response.data
             dispatch(fetchCategorySuccess(products))
