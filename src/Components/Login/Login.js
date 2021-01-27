@@ -20,16 +20,25 @@ const Login = ({ setUserInfo }) => {
     const provider = new firebase.auth.GoogleAuthProvider();
 
     const handleSignIn = () => {
-        firebase.auth()
-            .signInWithPopup(provider)
+        firebase.auth().signInWithPopup(provider)
             .then((result) => {
                 const { displayName, email, photoURL } = result.user;
                 setUserInfo(email, photoURL, displayName);
                 history.push(from)
+                getToken()
             }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
             });
+    }
+
+    const getToken = () => {
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+        .then(function(idToken) {
+            sessionStorage.setItem('token', idToken)
+          }).catch(function(error) {
+            // Handle error
+          });
     }
 
     return (

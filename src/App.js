@@ -36,7 +36,7 @@ function App() {
           <PrivateRoute path="/orderUpdate">
             <OrderUpdate />
           </PrivateRoute>
-          <PrivateRoute path="/payment">
+          <PrivateRoute path="/payment/:number">
             <Payment />
           </PrivateRoute>
           <Route path="/product/:category">

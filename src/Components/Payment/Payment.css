@@ -1,0 +1,31 @@
+.payment h1 {
+    font-family: 'Bebas Neue';
+    text-align: center;
+    margin: 3rem 0;
+}
+.payment input,
+.StripeElement {
+  width: 100%;
+  padding: 15px 14px;
+  border: 1px solid lightgray;
+  outline: 0;
+  background: transparent;
+  font-size: 14px;
+}
+.payment .payment-on {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+}
+.payment label {
+    font-weight: normal;
+    font-size: 14px;
+    width: 100%;
+}
+.payment p {
+    font-size: 12px;
+}
+.StripeElement {
+    margin-top: 3px;
+    height: 50px;
+}

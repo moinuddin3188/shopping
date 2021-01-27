@@ -54,7 +54,7 @@ const PlaceOrder = ({ product, cart, userInfo, deliveryInformation }) => {
     }
 
     const payment = () => {
-        history.push('/payment')
+        history.push(`/payment/${products.length}`)
     }
 
     const handleSubmit = e => {
