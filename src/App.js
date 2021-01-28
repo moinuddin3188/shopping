@@ -12,6 +12,7 @@ import SearchResult from './Components/SearchResult/SearchResult';
 import Login from './Components/Login/Login';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import Payment from './Components/Payment/Payment';
+import NotFound from './Components/NotFound/NotFound';
 
 function App() {
   return (
@@ -47,6 +48,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </Router>
