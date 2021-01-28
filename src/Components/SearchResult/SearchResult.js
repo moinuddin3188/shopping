@@ -14,7 +14,7 @@ const SearchResult = ({ products, fetchSearchProducts }) => {
 
     useEffect(() => {
         fetchSearchProducts(keyWord)
-    }, [])
+    }, [keyWord])
 
     return (
         <>

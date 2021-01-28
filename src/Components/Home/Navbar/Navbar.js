@@ -7,7 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux'
 
 
-const Navbar = ({ userInfo }) => {
+const Navbar = ({ userInfo, cart }) => {
 
     const [keyWord, setKeyword] = useState('')
 
@@ -38,7 +38,7 @@ const Navbar = ({ userInfo }) => {
             </div>
             <div className="col-auto d-flex align-items-center cart pl-0">
                 <Link to="/reviewOrder">
-                    <FontAwesomeIcon icon={faShoppingCart} />
+                    <FontAwesomeIcon icon={faShoppingCart} /> <span className="color text-decoration-none">{cart.length}</span>
                 </Link>
             </div>
             <div className={
@@ -59,7 +59,8 @@ const Navbar = ({ userInfo }) => {
 
 const mapStateToProps = state => {
     return {
-        userInfo: state.user
+        userInfo: state.user,
+        cart: state.cart.products
     }
 }
 
