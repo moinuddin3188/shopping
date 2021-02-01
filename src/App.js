@@ -13,6 +13,7 @@ import Login from './Components/Login/Login';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import Payment from './Components/Payment/Payment';
 import NotFound from './Components/NotFound/NotFound';
+import AdminDashboard from './Components/Dashboard/AdminDashboard/AdminDashboard';
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route path="/searchResult/:keyWord">
             <SearchResult />
+          </Route>
+          <Route path="/dashboard">
+            <AdminDashboard />
           </Route>
           <Route path="/login">
             <Login />

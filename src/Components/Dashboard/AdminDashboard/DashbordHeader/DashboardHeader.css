@@ -1,0 +1,13 @@
+.count-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    border: solid 1px #c9e1ff80;
+    text-align: center;
+}
+.count-card h2 {
+    font-weight: 600;
+}
+.count-card p {
+    font-size: 14px;
+}

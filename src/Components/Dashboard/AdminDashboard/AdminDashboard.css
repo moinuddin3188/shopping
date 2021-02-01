@@ -1,0 +1,19 @@
+.dashboard {
+    background: #f3f3f3;
+    padding: 25px;
+}
+.revenue-chart-container {
+    padding: 25px;
+    border-radius: 10px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+.orders-container, .earnings-container {
+    border-radius: 10px;
+    background-color: #fff;
+}
+.orders-header {
+    background-color: #e2e2e2;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+}
