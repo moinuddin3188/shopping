@@ -21,6 +21,14 @@ nav a {
     color: black;
     padding-left: 25px !important;
 }
+nav a:hover {
+    text-decoration: none;
+    color: #f73e64;
+}
 .user-photo {
     padding-top: 10px !important;
+    padding-left: 25px !important;
+}
+.dropdown-menu {
+    top: 10px !important;
 }

@@ -5,9 +5,11 @@ import { faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import logo from '../../../Images/logo.png';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux'
+import { setUserInfo } from '../../../Redux/User/UserAction';
+import Cookies from 'js-cookie';
 
 
-const Navbar = ({ userInfo, cart }) => {
+const Navbar = ({ userInfo, cart, setUserInfo }) => {
 
     const [keyWord, setKeyword] = useState('')
 
@@ -19,6 +21,11 @@ const Navbar = ({ userInfo, cart }) => {
     const history = useHistory()
     const searchResult = () => {
         history.push(keyWord && `/searchResult/${keyWord}`)
+    }
+
+    const logout = () => {
+        setUserInfo('', '', '');
+        Cookies.remove('token');
     }
 
     return (
@@ -46,10 +53,18 @@ const Navbar = ({ userInfo, cart }) => {
                     ? "col-auto d-none d-md-block p-0 user-photo"
                     : "col-auto d-none d-md-block p-0 pt-3"
             }>
-                {userInfo.name
-                    ? <Link>
-                        <img className='rounded-circle' width="25%" src={userInfo.photo} alt="" />
-                    </Link>
+                {userInfo.name ?
+                    <>
+                        <div type='button' className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img className='rounded-circle' width="28%" src={userInfo.photo} alt="" />
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div className="text-center">
+                                <h6 className="pl-2">{userInfo.name}</h6>
+                            </div>
+                            <button onClick={logout} className="dropdown-item" type="button">Logout</button>
+                        </div>
+                    </>
                     : <Link to="/login" className='text-decoration-none' href="">Login</Link>
                 }
             </div>
@@ -64,7 +79,13 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        setUserInfo: (email, photoUrl, name) => dispatch(setUserInfo(email, photoUrl, name))
+    }
+}
+
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(Navbar);

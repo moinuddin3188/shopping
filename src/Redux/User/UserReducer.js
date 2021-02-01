@@ -1,7 +1,8 @@
 import { SET_USER_INFO } from "./UserType";
 import jwt_decode from "jwt-decode";
+import Cookies from 'js-cookie';
 
-const token = sessionStorage.getItem('token');
+const token = Cookies.get('token');
 const decode = token && jwt_decode(token);
 
 const initialState = {

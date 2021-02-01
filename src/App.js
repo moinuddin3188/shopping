@@ -1,4 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'jquery/dist/jquery.min.js'
+import 'bootstrap/dist/js/bootstrap.min.js'
 import Details from './Components/Details/Details';
 import Home from './Components/Home/Home';
 import OrderUpdate from './Components/OrderUpdate/OrderUpdate';
@@ -47,9 +49,9 @@ function App() {
           <Route path="/searchResult/:keyWord">
             <SearchResult />
           </Route>
-          <Route path="/dashboard">
+          <PrivateRoute path="/dashboard">
             <AdminDashboard />
-          </Route>
+          </PrivateRoute>
           <Route path="/login">
             <Login />
           </Route>

@@ -7,6 +7,7 @@ import { firebaseConfig } from '../../Firebase/Firebase';
 import { connect } from 'react-redux';
 import { setUserInfo } from '../../Redux/User/UserAction';
 import { useHistory, useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 firebase.initializeApp(firebaseConfig);
@@ -35,7 +36,7 @@ const Login = ({ setUserInfo }) => {
     const getToken = () => {
         firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
         .then(function(idToken) {
-            sessionStorage.setItem('token', idToken)
+            Cookies.set('token', idToken, { expires: 7 })
           }).catch(function(error) {
             // Handle error
           });
